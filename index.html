@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Todo List</h1>
+    <form>
+        <input type="text" placeholder="Add a new todo">
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+        <!-- <li>
+            <span>Todo 1</span>
+            <button class="delete-btn">Delete</button>
+        </li>
+        <li>
+            <span>Todo 2</span>
+            <button class="delete-btn">Delete</button>
+        </li>
+        <li>
+            <span>Todo 3</span>
+            <button class="delete-btn">Delete</button>
+        </li> -->
+    </ul>
+
+    <script>
+        const form = document.querySelector('form');
+        const input = document.querySelector('input');
+        const ul = document.querySelector('ul');
+
+        // Add a new todo
+        form.addEventListener('submit', function(event) {
+            if(input.value === ''){
+                alert("Please enter a todo");
+            }
+            else{
+                event.preventDefault();
+                const li = document.createElement('li');
+                const span = document.createElement('span');
+                const deleteBtn = document.createElement('button');
+                span.textContent = input.value;
+                deleteBtn.textContent = 'Delete';
+                li.appendChild(span);
+                li.appendChild(deleteBtn);
+                ul.appendChild(li);
+                input.value = '';
+            }
+        });
+
+        // Delete a todo
+        ul.addEventListener('click', function(event) {
+            if (event.target.tagName === 'BUTTON') {
+                event.target.parentElement.remove();
+            }
+        });
+
+        // Edit a todo
+        ul.addEventListener('dblclick', function(event) {
+            if (event.target.tagName === 'SPAN') {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = event.target.textContent;
+                event.target.replaceWith(input);
+                input.addEventListener('blur', function() {
+                    const span = document.createElement('span');
+                    span.textContent = input.value;
+                    input.replaceWith(span);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
